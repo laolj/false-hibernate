@@ -29,7 +29,7 @@ public class UserVO {
     private String role;
 
 
-    @OneToOne(targetEntity = UserSec.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToOne(targetEntity = UserSec.class,cascade = CascadeType.ALL)
     @JoinColumn(name = "id",referencedColumnName = "uid")
     private UserSec userSec;
 
