@@ -14,16 +14,27 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Data
 public class UserVO {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
+
+    @Column(name = "username")
     private String username;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "role")
     private String role;
 
-    @OneToOne
+
+    @OneToOne(targetEntity = UserSec.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "id",referencedColumnName = "uid")
     private UserSec userSec;
+
+
+
 
 //    @OneToOne(targetEntity = UserSec.class)
 //    @JoinColumn(name = "id",referencedColumnName = "id")
@@ -37,41 +48,6 @@ public class UserVO {
 //        this.userSec = userSec;
 //    }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    @Override
-    public String toString() {
-        return "userame: " + username + ", password: " + password + ", role: " + role;
-    }
 
 }
