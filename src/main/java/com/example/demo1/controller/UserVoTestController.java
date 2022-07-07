@@ -29,6 +29,14 @@ public class UserVoTestController {
         userVoTestService.addUserSec();
     }
 
+    /**
+     *基哥的写法
+     */
+    @RequestMapping("/getUserOneToOne")
+    public void getUserOneToOne(){
+        userVoTestService.getOneToOne();
+    }
+
 
 
 }
