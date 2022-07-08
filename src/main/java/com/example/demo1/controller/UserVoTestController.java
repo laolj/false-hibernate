@@ -1,5 +1,6 @@
 package com.example.demo1.controller;
 
+import com.example.demo1.pojo.UserVO;
 import com.example.demo1.services.UserVoTestService;
 import com.example.demo1.vo.Restful;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,6 +67,25 @@ public class UserVoTestController {
             return Restful.messageFail("登录失败，用户不存在",failData);
         }
         return Restful.ok(login);
+    }
+
+    @RequestMapping(value = "/loginTest",method = RequestMethod.GET)
+    public Restful loginTest(String username,String password){
+        if(username==null||password==null){
+            return Restful.fail();
+        }
+        List<UserVO> userVOS = userVoTestService.lambdaLogin();
+        if(userVOS==null||userVOS.size()==0){
+            List<Map<String,Object>> failData=new ArrayList<>();
+            Map<String,Object> map=new HashMap<>();
+            map.put("id",1);
+            map.put("username","admin");
+            map.put("password","admin");
+            map.put("role","role");
+            failData.add(map);
+            return Restful.messageFail("登录失败，用户不存在",failData);
+        }
+        return Restful.ok(userVOS);
     }
 
 
