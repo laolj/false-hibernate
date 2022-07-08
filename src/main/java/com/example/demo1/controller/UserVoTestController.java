@@ -74,7 +74,7 @@ public class UserVoTestController {
         if(username==null||password==null){
             return Restful.fail();
         }
-        List<UserVO> userVOS = userVoTestService.lambdaLogin();
+        List<UserVO> userVOS = userVoTestService.lambdaLogin(username,password);
         if(userVOS==null||userVOS.size()==0){
             List<Map<String,Object>> failData=new ArrayList<>();
             Map<String,Object> map=new HashMap<>();
@@ -87,7 +87,5 @@ public class UserVoTestController {
         }
         return Restful.ok(userVOS);
     }
-
-
 
 }

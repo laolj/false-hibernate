@@ -36,12 +36,12 @@ public class UserVoTestService {
     }
 
     //采用lambda表达式的方法,纯Java语言
-    public List<UserVO>  lambdaLogin(){
+    public List<UserVO>  lambdaLogin(String username,String password){
         List<UserVO> all = userVoTestRepository.findAll(new Specification<UserVO>() {
             @Override
             public Predicate toPredicate(Root<UserVO> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
                 Predicate conjunction = criteriaBuilder.conjunction();
-                Predicate predicate = criteriaBuilder.and(conjunction, criteriaBuilder.equal(root.get("username"), "admin0"), criteriaBuilder.equal(root.get("password"), "1230"));
+                Predicate predicate = criteriaBuilder.and(conjunction, criteriaBuilder.equal(root.get("username"), username), criteriaBuilder.equal(root.get("password"), password));
                 return predicate;
             }
         });

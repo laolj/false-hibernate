@@ -47,7 +47,19 @@ class Demo1ApplicationTests {
 
     @Test
     void context2(){
-        userVoTestService.lambdaLogin();
+        userVoTestService.lambdaLogin("admin0","1230");
+    }
+
+    @Test
+    void context3(){
+        for (int i = 10; i < 20; i++) {
+            UserVO userVO=new UserVO();
+            userVO.setId((long) i);
+            userVO.setUsername("admin"+i);
+            userVO.setPassword("admin"+i);
+            userVO.setRole("ROLE_admin"+i);
+            userVoTestRepository.save(userVO);
+        }
     }
 
 }
