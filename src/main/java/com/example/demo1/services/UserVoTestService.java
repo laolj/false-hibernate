@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserVoTestService {
@@ -27,6 +28,17 @@ public class UserVoTestService {
     @Autowired
     private UserSecRepository userSecRepository;
 
+    public List<Map<String,Object>> login(String username, String password){
+        return userVoTestRepository.findByUsernameAndPassword(username,password);
+    }
+
+
+    /**
+     * 分页查询
+     * @param num  第几页开始
+     * @param size 一页多少个数据
+     * @return
+     */
     public Page<UserVO> loadAll(Integer num,Integer size){
         Pageable pageRequest = PageRequest.of(num, size);
         Page<UserVO> all = userVoTestRepository.findAll(pageRequest);
@@ -34,23 +46,29 @@ public class UserVoTestService {
     }
 
 
+    /**
+     * 查询所有数据
+     * @return
+     */
     public List<UserVO> listAll(){
         return userVoTestRepository.findAll();
     }
 
 
-
+    /**
+     * 复杂查询
+     */
     public void hello(){
 //        List<UserSec> all = userSecRepository.findAll();
 //        System.out.println(all);
 //        List<UserVO> all = userVoTestRepository.findAll();
 //        System.out.println(all);
-        Specification<UserVO> specification=new Specification<UserVO>() {
+        Specification<UserVO> specification = new Specification<UserVO>() {
             @Override
             public Predicate toPredicate(Root<UserVO> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-                List<Predicate> predicates=new ArrayList<>();
+                List<Predicate> predicates = new ArrayList<>();
                 Join<UserVO, UserSec> join = root.join("userSec", JoinType.INNER);
-                predicates.add(criteriaBuilder.equal(join.get("uid"),8));
+                predicates.add(criteriaBuilder.equal(join.get("uid"), 8));
                 Predicate[] predicates1 = new Predicate[predicates.size()];
                 return criteriaBuilder.and(predicates.toArray(predicates1));
             }
@@ -67,11 +85,12 @@ public class UserVoTestService {
 
     public void add(){
         for (int i = 0; i < 10; i++) {
-            UserVO userVO=new UserVO();
-            userVO.setId((long)i);
-            userVO.setUsername("admin"+i);
-            userVO.setPassword("123"+i);
-            userVO.setRole("admin"+i);
+            UserVO userVO = new UserVO();
+            userVO.setId((long) i);
+            userVO.setUsername("admin" + i);
+            userVO.setPassword("123" + i);
+            userVO.setRole("admin" + i);
+            String ls;
 //            UserSec userSec=new UserSec();
 //            userSec.setAge(i);
 //            userSec.setUid((long) i);
