@@ -63,6 +63,19 @@ public class UserVoTestService {
     }
 
 
+    public void learn(){
+        List<UserVO> all = userVoTestRepository.findAll(new Specification<UserVO>() {
+            @Override
+            public Predicate toPredicate(Root<UserVO> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+                Join<UserVO, UserSec> userSec = root.join("userSec", JoinType.LEFT);
+                Predicate username = criteriaBuilder.like(root.get("username"), "admin1%");
+                return username;
+            }
+        });
+        System.out.println(all);
+    }
+
+
     /**
      * 查询所有数据
      * @return

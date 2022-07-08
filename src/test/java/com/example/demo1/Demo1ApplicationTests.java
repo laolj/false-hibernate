@@ -62,4 +62,9 @@ class Demo1ApplicationTests {
         }
     }
 
+    @Test
+    void context4(){
+        userVoTestService.learn();
+    }
+
 }
